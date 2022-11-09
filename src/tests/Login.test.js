@@ -1,5 +1,6 @@
 import { cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import App from '../App';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 import mockFetchToken from './mocks/mockFetch';
@@ -24,10 +25,23 @@ describe('Login page', () => {
 
     const loginBtn = getByTestId('btn-play');
     expect(loginBtn).toBeInTheDocument();
+
+    const configBtn = getByTestId('btn-settings');
+    expect(configBtn).toBeInTheDocument();
   });
 
-  test('if the page redirects correctly', () => {
-    const { getByTestId } = renderWithRouterAndRedux(<App />);
+  test('if the config button redirects correctly', () => {
+    const { getByTestId, history } = renderWithRouterAndRedux(<App />);
+  
+    const configBtn = getByTestId('btn-settings');
+    expect(configBtn).toBeInTheDocument();
+
+    userEvent.click(configBtn);
+    expect(history.location.pathname).toBe('/settings');
+  });
+
+  test('if the play button redirects correctly', async () => {
+    const { getByTestId, findByTestId, history } = renderWithRouterAndRedux(<App />);
 
     const nameInput = getByTestId('input-player-name');
     const emailInput = getByTestId('input-gravatar-email');
@@ -43,5 +57,10 @@ describe('Login page', () => {
 
     userEvent.click(loginBtn);
     expect(global.fetch).toHaveBeenCalledTimes(1);
+    
+    const gravatarImg = await findByTestId('header-profile-picture');
+    
+    expect(history.location.pathname).toBe('/game')
+    expect(gravatarImg).toBeInTheDocument();
   });
 });
