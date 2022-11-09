@@ -29,6 +29,11 @@ class Login extends Component {
     return !(name && email);
   };
 
+  goToSettings = () => {
+    const { history } = this.props;
+    history.push('./settings');
+  };
+
   render() {
     const { name, email } = this.state;
     return (
@@ -56,6 +61,14 @@ class Login extends Component {
           onClick={ this.fetchToken }
         >
           Play
+        </button>
+        <button
+          data-testid="btn-settings"
+          type="button"
+          onClick={ this.goToSettings }
+        >
+          Configurações
+
         </button>
       </form>
     );
