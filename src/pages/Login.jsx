@@ -71,7 +71,6 @@ class Login extends Component {
           onClick={ this.goToSettings }
         >
           Configurações
-
         </button>
       </form>
     );
