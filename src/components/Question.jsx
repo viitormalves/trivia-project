@@ -7,6 +7,7 @@ class Question extends Component {
     super();
     this.state = {
       alternatives: [],
+      checkAnswer: null,
     };
   }
 
@@ -27,9 +28,18 @@ class Question extends Component {
     return array;
   };
 
+  handleAnswer = ({ target }) => {
+    const { question } = this.props;
+    console.log(target.innerText);
+    console.log(question);
+    if (target.innerText === question.correct_answer) {
+      this.setState({ checkAnswer: true });
+    } this.setState({ checkAnswer: true });
+  };
+
   render() {
     const { question } = this.props;
-    const { alternatives } = this.state;
+    const { alternatives, checkAnswer } = this.state;
     console.log(question);
     return (
       <div>
@@ -44,6 +54,8 @@ class Question extends Component {
                     type="button"
                     data-testid="correct-answer"
                     key={ alternative }
+                    onClick={ this.handleAnswer }
+                    className={ checkAnswer && 'correctAnswer' }
                   >
                     { alternative }
                   </button>
@@ -54,6 +66,8 @@ class Question extends Component {
                   type="button"
                   data-testid={ `wrong-answer-${index}` }
                   key={ alternative }
+                  onClick={ this.handleAnswer }
+                  className={ checkAnswer && 'incorrectAnswer' }
                 >
                   {alternative}
                 </button>
