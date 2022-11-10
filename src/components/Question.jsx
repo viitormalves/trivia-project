@@ -8,6 +8,8 @@ class Question extends Component {
     this.state = {
       alternatives: [],
       checkAnswer: null,
+      timer: 0,
+      disabled: true,
     };
   }
 
@@ -18,6 +20,7 @@ class Question extends Component {
     const array = [...incorrect, correct];
     this.shuffle(array);
     this.setState({ alternatives: array });
+    this.inittialTimer();
   }
 
   shuffle = (array) => {
@@ -37,14 +40,57 @@ class Question extends Component {
     } this.setState({ checkAnswer: true });
   };
 
+  startTimer = () => {
+    this.setState({ timer: 3 }, () => {
+      const second = 1000;
+      const idInterval = setInterval(() => {
+        this.setState((prevState) => ({
+          timer: prevState.timer - 1,
+        }), () => {
+          const { timer } = this.state;
+          if (timer === 0) {
+            clearInterval(idInterval);
+            this.setState({
+              disabled: true,
+              checkAnswer: true,
+            });
+          }
+        });
+      }, second);
+    });
+  };
+
+  inittialTimer = () => {
+    this.setState({ timer: 5 }, () => {
+      const second = 1000;
+      const idInterval = setInterval(() => {
+        this.setState((prevState) => ({
+          timer: prevState.timer - 1,
+        }), () => {
+          const { timer } = this.state;
+          if (timer === 0) {
+            clearInterval(idInterval);
+            this.setState({
+              disabled: false,
+            });
+            this.startTimer();
+          }
+        });
+      }, second);
+    });
+  };
+
   render() {
     const { question } = this.props;
-    const { alternatives, checkAnswer } = this.state;
+    const { alternatives, checkAnswer, timer, disabled } = this.state;
     console.log(question);
     return (
       <div>
         <h3 data-testid="question-category">{question.category}</h3>
         <p data-testid="question-text">{question.question}</p>
+
+        <h3>{ timer }</h3>
+
         <div data-testid="answer-options">
           {
             alternatives.map((alternative, index) => {
@@ -55,6 +101,7 @@ class Question extends Component {
                     data-testid="correct-answer"
                     key={ alternative }
                     onClick={ this.handleAnswer }
+                    disabled={ disabled }
                     className={ checkAnswer && 'correctAnswer' }
                   >
                     { alternative }
@@ -67,6 +114,7 @@ class Question extends Component {
                   data-testid={ `wrong-answer-${index}` }
                   key={ alternative }
                   onClick={ this.handleAnswer }
+                  disabled={ disabled }
                   className={ checkAnswer && 'incorrectAnswer' }
                 >
                   {alternative}
