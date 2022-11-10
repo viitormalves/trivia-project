@@ -18,12 +18,13 @@ class Game extends Component {
   }
 
   render() {
-    const { questions, count } = this.props;
+    const { questions } = this.props;
     return (
       <>
         <Header />
         {
-          questions.length > 0 && <Question question={ questions[count] } />
+          questions.length && (
+            <Question />)
         }
       </>
     );

@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { setScore } from '../redux/actions';
+import { nextQuestion, setScore } from '../redux/actions';
 
 class Question extends Component {
   constructor() {
@@ -15,14 +15,20 @@ class Question extends Component {
   }
 
   componentDidMount() {
+    this.start();
+  }
+
+  start = () => {
+    const { questions, count } = this.props;
     const {
-      question: { incorrect_answers: incorrect, correct_answer: correct },
-    } = this.props;
+      incorrect_answers: incorrect, correct_answer: correct,
+    } = questions[count];
+    console.log(questions[count]);
     const array = [...incorrect, correct];
     this.shuffle(array);
     this.setState({ alternatives: array });
     this.inittialTimer();
-  }
+  };
 
   shuffle = (array) => {
     for (let i = array.length - 1; i > 0; i -= 1) {
@@ -33,7 +39,8 @@ class Question extends Component {
   };
 
   handleScore = () => {
-    const { question: { difficulty }, dispatch } = this.props;
+    const { questions, count, dispatch } = this.props;
+    const { difficulty } = questions[count];
     const { timer } = this.state;
     const score10 = 10;
     let result = 0;
@@ -53,7 +60,8 @@ class Question extends Component {
   };
 
   handleAnswer = ({ target }) => {
-    const { question } = this.props;
+    const { questions, count } = this.props;
+    const question = questions[count];
     console.log(target.innerText);
     console.log(question);
     if (target.innerText === question.correct_answer) {
@@ -103,9 +111,22 @@ class Question extends Component {
     });
   };
 
+  handleNext = async () => {
+    const { dispatch, count, questions } = this.props;
+    if (count <= (questions.length - 1)) {
+      this.setState({ checkAnswer: false });
+      await dispatch(nextQuestion());
+
+      this.start();
+    } else {
+      // history.push('/feedback');
+    }
+  };
+
   render() {
-    const { question } = this.props;
+    const { questions, count } = this.props;
     const { alternatives, checkAnswer, timer, disabled } = this.state;
+    const question = questions[count];
     console.log(question);
     return (
       <div>
@@ -116,35 +137,33 @@ class Question extends Component {
 
         <div data-testid="answer-options">
           {
-            alternatives.map((alternative, index) => {
-              if (alternative === question.correct_answer) {
-                return (
-                  <button
-                    type="button"
-                    data-testid="correct-answer"
-                    key={ alternative }
-                    onClick={ this.handleAnswer }
-                    disabled={ disabled }
-                    className={ checkAnswer && 'correctAnswer' }
-                  >
-                    { alternative }
-                  </button>
-                );
-              }
-              return (
-                <button
-                  type="button"
-                  data-testid={ `wrong-answer-${index}` }
-                  key={ alternative }
-                  onClick={ this.handleAnswer }
-                  disabled={ disabled }
-                  className={ checkAnswer && 'incorrectAnswer' }
-                >
-                  {alternative}
-                </button>
-              );
-            })
+            alternatives.map((alternative, index) => (
+              <button
+                type="button"
+                data-testid={
+                  (alternative === question.correct_answer)
+                    ? 'correct-answer'
+                    : `wrong-answer-${index}`
+                }
+                key={ alternative }
+                onClick={ this.handleAnswer }
+                disabled={ disabled }
+                className={ checkAnswer
+                  && `${(alternative === question.correct_answer)
+                    ? 'correctAnswer'
+                    : 'incorrectAnswer'}` }
+              >
+                { alternative }
+              </button>))
           }
+          {checkAnswer && (
+            <button
+              type="button"
+              data-testid="btn-next"
+              onClick={ this.handleNext }
+            >
+              Next
+            </button>)}
         </div>
       </div>
     );
@@ -152,13 +171,16 @@ class Question extends Component {
 }
 
 Question.propTypes = {
-  question: PropTypes.shape({}),
+  questions: PropTypes.arrayOf(PropTypes.shape({})),
+  total: PropTypes.number,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
   name: state.player.name,
   gravatarEmail: state.player.gravatarEmail,
   score: state.player.score,
+  count: state.game.count,
+  questions: state.game.questions,
 });
 
 export default connect(mapStateToProps)(Question);
