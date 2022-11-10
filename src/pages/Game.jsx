@@ -1,29 +1,48 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { fetchQuestions } from '../redux/actions';
+import Question from '../components/Question';
 
 class Game extends Component {
-  componentDidMount() {
-    const { dispatch } = this.props;
-
+  async componentDidMount() {
+    const { dispatch, history } = this.props;
     const token = localStorage.getItem('token');
-    dispatch(fetchQuestions(token));
+    await dispatch(fetchQuestions(token));
+    const { valid } = this.props;
+    if (!valid) {
+      localStorage.removeItem('token');
+      history.push('/');
+    }
   }
 
   render() {
+    const { questions, count } = this.props;
     return (
       <>
         <Header />
-        <h1>Game</h1>
+        {
+          questions.length > 0 && <Question question={ questions[count] } />
+        }
       </>
     );
   }
 }
 
-const mapStateToProps = ({ game: { questions, count } }) => ({
+const mapStateToProps = ({ game: { questions, count, valid } }) => ({
   questions,
   count,
+  valid,
 });
+
+Game.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+  dispatch: PropTypes.func,
+  count: PropTypes.number,
+  questions: PropTypes.arrayOf(PropTypes.shape({})),
+}.isRequired;
 
 export default connect(mapStateToProps)(Game);
