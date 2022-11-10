@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { setScore } from '../redux/actions';
 
 class Question extends Component {
   constructor() {
@@ -31,28 +32,50 @@ class Question extends Component {
     return array;
   };
 
+  handleScore = () => {
+    const { question: { difficulty }, dispatch } = this.props;
+    const { timer } = this.state;
+    const score10 = 10;
+    let result = 0;
+    if (difficulty === 'easy') {
+      const scoreEasy = 1;
+      result = score10 + (scoreEasy * timer);
+      dispatch(setScore(result));
+    } else if (difficulty === 'medium') {
+      const scoreMedium = 2;
+      result = score10 + (scoreMedium * timer);
+      dispatch(setScore(result));
+    } else if (difficulty === 'hard') {
+      const scoreHard = 3;
+      result = score10 + (scoreHard * timer);
+      dispatch(setScore(result));
+    }
+  };
+
   handleAnswer = ({ target }) => {
     const { question } = this.props;
     console.log(target.innerText);
     console.log(question);
     if (target.innerText === question.correct_answer) {
-      this.setState({ checkAnswer: true });
-    } this.setState({ checkAnswer: true });
+      this.setState({ checkAnswer: true, disabled: true });
+      this.handleScore();
+    } this.setState({ checkAnswer: true, disabled: true });
   };
 
   startTimer = () => {
-    this.setState({ timer: 3 }, () => {
+    this.setState({ timer: 30 }, () => {
       const second = 1000;
       const idInterval = setInterval(() => {
         this.setState((prevState) => ({
           timer: prevState.timer - 1,
         }), () => {
-          const { timer } = this.state;
-          if (timer === 0) {
+          const { timer, checkAnswer } = this.state;
+          if (timer <= 0 || checkAnswer) {
             clearInterval(idInterval);
             this.setState({
               disabled: true,
               checkAnswer: true,
+              timer: 0,
             });
           }
         });
@@ -68,7 +91,7 @@ class Question extends Component {
           timer: prevState.timer - 1,
         }), () => {
           const { timer } = this.state;
-          if (timer === 0) {
+          if (timer <= 0) {
             clearInterval(idInterval);
             this.setState({
               disabled: false,
@@ -132,4 +155,10 @@ Question.propTypes = {
   question: PropTypes.shape({}),
 }.isRequired;
 
-export default connect()(Question);
+const mapStateToProps = (state) => ({
+  name: state.player.name,
+  gravatarEmail: state.player.gravatarEmail,
+  score: state.player.score,
+});
+
+export default connect(mapStateToProps)(Question);
