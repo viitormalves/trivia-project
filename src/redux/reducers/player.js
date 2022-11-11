@@ -1,4 +1,4 @@
-import { USER_LOGIN, ADD_SCORE } from '../actions';
+import { USER_LOGIN, ADD_SCORE, CLEAR_SCORE } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
@@ -21,6 +21,8 @@ function player(state = INITIAL_STATE, action) {
       score: (state.score + action.score),
       assertions: state.assertions + 1,
     };
+  case CLEAR_SCORE:
+    return { ...state, score: 0 };
   default:
     return state;
   }

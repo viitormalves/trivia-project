@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createUser } from '../redux/actions';
+import { createUser, clearQuestions, clearScore } from '../redux/actions';
 
 class Login extends Component {
   constructor() {
@@ -24,6 +24,8 @@ class Login extends Component {
     const { token } = data;
     localStorage.setItem('token', token);
     dispatch(createUser(name, email));
+    dispatch(clearQuestions());
+    dispatch(clearScore());
     history.push('/game');
   };
 
