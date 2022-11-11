@@ -1,3 +1,4 @@
+import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -112,13 +113,25 @@ class Question extends Component {
   };
 
   handleNext = async () => {
-    const { dispatch, count, questions } = this.props;
+    const { dispatch, count, questions, name, gravatarEmail, score } = this.props;
     if (count < (questions.length - 1)) {
       this.setState({ checkAnswer: false });
       await dispatch(nextQuestion());
 
       this.start();
     } else {
+      // const string = md5(gravatarEmail).toString();
+      const player = {
+        name,
+        score,
+        picture: `https://www.gravatar.com/avatar/${md5(gravatarEmail).toString()}`,
+      };
+      const storage = localStorage.getItem('ranking');
+      const ranking = storage ? JSON.parse(storage) : [];
+
+      ranking.push(player);
+
+      localStorage.setItem('ranking', JSON.stringify(ranking));
       this.setState({ redirect: true });
     }
   };
@@ -174,6 +187,8 @@ class Question extends Component {
 Question.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.shape({})),
   total: PropTypes.number,
+  score: PropTypes.number,
+  gravatarEmail: PropTypes.string,
 }.isRequired;
 
 const mapStateToProps = (state) => ({

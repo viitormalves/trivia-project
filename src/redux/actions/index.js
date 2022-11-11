@@ -1,5 +1,6 @@
 export const USER_LOGIN = 'USER_LOGIN';
 export const SET_QUESTIONS = 'SET_QUESTIONS';
+export const CLEAR_QUESTIONS = 'CLEAR_QUESTIONS';
 export const ADD_SCORE = 'ADD_SCORE';
 export const NEXT_QUESTION = 'NEXT_QUESTION';
 const qtdDefault = 5;
@@ -13,6 +14,10 @@ export const createUser = (name, gravatarEmail) => ({
 const setQuestions = (list) => ({
   type: SET_QUESTIONS,
   payload: list,
+});
+
+export const clearQuestions = () => ({
+  type: CLEAR_QUESTIONS,
 });
 
 export function fetchQuestions(token, qtd = qtdDefault) {

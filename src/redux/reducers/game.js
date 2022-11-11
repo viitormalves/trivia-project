@@ -1,4 +1,4 @@
-import { NEXT_QUESTION, SET_QUESTIONS } from '../actions';
+import { NEXT_QUESTION, SET_QUESTIONS, CLEAR_QUESTIONS } from '../actions';
 
 const error = 0;
 
@@ -15,8 +15,11 @@ function game(state = INITIAL_STATE, action) {
   case SET_QUESTIONS:
     return { ...state,
       questions: action.payload.results,
+      count: 0,
       valid: (action.payload.response_code === error),
     };
+  case CLEAR_QUESTIONS:
+    return { ...state, questions: [] };
   default:
     return state;
   }
