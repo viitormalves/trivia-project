@@ -3,6 +3,7 @@ export const SET_QUESTIONS = 'SET_QUESTIONS';
 export const CLEAR_QUESTIONS = 'CLEAR_QUESTIONS';
 export const ADD_SCORE = 'ADD_SCORE';
 export const NEXT_QUESTION = 'NEXT_QUESTION';
+export const CLEAR_SCORE = 'CLEAR_SCORE';
 const qtdDefault = 5;
 
 export const createUser = (name, gravatarEmail) => ({
@@ -18,6 +19,10 @@ const setQuestions = (list) => ({
 
 export const clearQuestions = () => ({
   type: CLEAR_QUESTIONS,
+});
+
+export const clearScore = () => ({
+  type: CLEAR_SCORE,
 });
 
 export function fetchQuestions(token, qtd = qtdDefault) {
