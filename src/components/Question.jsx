@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { nextQuestion, setScore } from '../redux/actions';
 
 class Question extends Component {
@@ -11,6 +12,7 @@ class Question extends Component {
       checkAnswer: null,
       timer: 0,
       disabled: true,
+      redirect: false,
     };
   }
 
@@ -64,10 +66,8 @@ class Question extends Component {
     const question = questions[count];
     console.log(target.innerText);
     console.log(question);
-    if (target.innerText === question.correct_answer) {
-      this.setState({ checkAnswer: true, disabled: true });
-      this.handleScore();
-    } this.setState({ checkAnswer: true, disabled: true });
+    if (target.innerText === question.correct_answer) this.handleScore();
+    this.setState({ checkAnswer: true, disabled: true });
   };
 
   startTimer = () => {
@@ -113,23 +113,24 @@ class Question extends Component {
 
   handleNext = async () => {
     const { dispatch, count, questions } = this.props;
-    if (count <= (questions.length - 1)) {
+    if (count < (questions.length - 1)) {
       this.setState({ checkAnswer: false });
       await dispatch(nextQuestion());
 
       this.start();
     } else {
-      // history.push('/feedback');
+      this.setState({ redirect: true });
     }
   };
 
   render() {
     const { questions, count } = this.props;
-    const { alternatives, checkAnswer, timer, disabled } = this.state;
+    const { alternatives, checkAnswer, timer, disabled, redirect } = this.state;
     const question = questions[count];
     console.log(question);
     return (
       <div>
+        {redirect && <Redirect to="/feedback" />}
         <h3 data-testid="question-category">{question.category}</h3>
         <p data-testid="question-text">{question.question}</p>
 
@@ -162,7 +163,7 @@ class Question extends Component {
               data-testid="btn-next"
               onClick={ this.handleNext }
             >
-              Next
+              Próxima
             </button>)}
         </div>
       </div>
