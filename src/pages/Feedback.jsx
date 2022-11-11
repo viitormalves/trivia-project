@@ -5,6 +5,7 @@ import Header from '../components/Header';
 
 class Feedback extends Component {
   render() {
+    const { history } = this.props;
     const { assertions, score } = this.props;
     return (
       <div>
@@ -19,6 +20,13 @@ class Feedback extends Component {
           <span data-testid="feedback-total-score">{score}</span>
           {' pontos'}
         </p>
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ () => (history.push('/')) }
+        >
+          Jogar Novamente
+        </button>
       </div>
     );
   }
@@ -27,7 +35,10 @@ class Feedback extends Component {
 Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
-};
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
 
 const mapStateToProps = ({ player: { assertions, score } }) => ({
   assertions,
