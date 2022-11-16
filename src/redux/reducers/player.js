@@ -22,7 +22,7 @@ function player(state = INITIAL_STATE, action) {
       assertions: state.assertions + 1,
     };
   case CLEAR_SCORE:
-    return { ...state, score: 0 };
+    return { ...state, score: 0, assertions: 0 };
   default:
     return state;
   }

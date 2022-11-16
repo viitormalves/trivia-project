@@ -170,7 +170,7 @@ class Question extends Component {
                 { alternative }
               </button>))
           }
-          {checkAnswer && (
+          {(checkAnswer && !timer) && (
             <button
               type="button"
               data-testid="btn-next"
