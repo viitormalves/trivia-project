@@ -1,9 +1,8 @@
-import { cleanup } from '@testing-library/react';
+import { act, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
 import App from '../App';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
-import mockFetchToken from './mocks/mockFetch';
+import { mockFetchQuestions, mockFetchToken } from './mocks/mockFetch';
 
 describe('Login page', () => {
   beforeEach(() => {
@@ -36,7 +35,7 @@ describe('Login page', () => {
     const configBtn = getByTestId('btn-settings');
     expect(configBtn).toBeInTheDocument();
 
-    userEvent.click(configBtn);
+    act(() => userEvent.click(configBtn));
     expect(history.location.pathname).toBe('/settings');
   });
 
@@ -50,12 +49,14 @@ describe('Login page', () => {
     expect(loginBtn.disabled).toBe(true);
 
     
-    userEvent.type(emailInput, 'test@email.com');
+    act(() => userEvent.type(emailInput, 'test@email.com'));
     expect(loginBtn.disabled).toBe(true);
-    userEvent.type(nameInput, 'teste');
+
+    act(() => userEvent.type(nameInput, 'teste'));
     expect(loginBtn.disabled).toBe(false);
 
-    userEvent.click(loginBtn);
+    global.fetch = jest.fn(mockFetchQuestions);
+    act(() => userEvent.click(loginBtn));
     expect(global.fetch).toHaveBeenCalledTimes(1);
     
     const gravatarImg = await findByTestId('header-profile-picture');

@@ -26,7 +26,6 @@ class Question extends Component {
     const {
       incorrect_answers: incorrect, correct_answer: correct,
     } = questions[count];
-    console.log(questions[count]);
     const array = [...incorrect, correct];
     this.shuffle(array);
     this.setState({ alternatives: array });
@@ -65,8 +64,6 @@ class Question extends Component {
   handleAnswer = ({ target }) => {
     const { questions, count } = this.props;
     const question = questions[count];
-    console.log(target.innerText);
-    console.log(question);
     if (target.innerText === question.correct_answer) this.handleScore();
     this.setState({ checkAnswer: true, disabled: true });
   };
@@ -140,7 +137,6 @@ class Question extends Component {
     const { questions, count } = this.props;
     const { alternatives, checkAnswer, timer, disabled, redirect } = this.state;
     const question = questions[count];
-    console.log(question);
     return (
       <div>
         {redirect && <Redirect to="/feedback" />}
