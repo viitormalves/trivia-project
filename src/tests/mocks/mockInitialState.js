@@ -3,7 +3,7 @@ const initialState = {
     name: 'Test',
     assertions: 3,
     score: 200,
-    gravatarEmail: 'test@test.com'
+    gravatarEmail: 'test@test.com',
   },
   game: {
     questions: [
@@ -16,8 +16,8 @@ const initialState = {
         incorrect_answers: [
           'Attack on Truk Island',
           'Attack on Pearl Harbor',
-          'Battle of the Coral Sea'
-        ]
+          'Battle of the Coral Sea',
+        ],
       },
       {
         category: 'Geography',
@@ -26,8 +26,8 @@ const initialState = {
         question: 'The flag of South Africa features 7 colours.',
         correct_answer: 'False',
         incorrect_answers: [
-          'True'
-        ]
+          'True',
+        ],
       },
       {
         category: 'Entertainment: Film',
@@ -36,8 +36,8 @@ const initialState = {
         question: 'The colour of the pills in the Matrix were Blue and Yellow.',
         correct_answer: 'False',
         incorrect_answers: [
-          'True'
-        ]
+          'True',
+        ],
       },
       {
         category: 'Entertainment: Music',
@@ -48,8 +48,8 @@ const initialState = {
         incorrect_answers: [
           'Cut Copy',
           'Empire of the Sun',
-          'Tame Impala'
-        ]
+          'Tame Impala',
+        ],
       },
       {
         category: 'History',
@@ -60,13 +60,13 @@ const initialState = {
         incorrect_answers: [
           'Gaining Independence',
           'Go back under British Rule',
-          'Lower taxes'
-        ]
-      }
+          'Lower taxes',
+        ],
+      },
     ],
     count: 4,
-    valid: true
-  }
-}
+    valid: true,
+  },
+};
 
 export default initialState;
