@@ -1,7 +1,9 @@
-import tokenResponse from './mockData';
+import { tokenResponse, questionsResponse } from './mockData';
 
-const mockFetchToken = () => Promise.resolve({
+export const mockFetchToken = () => Promise.resolve({
   json: () => Promise.resolve(tokenResponse),
 });
 
-export default mockFetchToken;
+export const mockFetchQuestions = () => Promise.resolve({
+  json: () => Promise.resolve(questionsResponse)
+});

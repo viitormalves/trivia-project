@@ -28,10 +28,7 @@ export const clearScore = () => ({
 export function fetchQuestions(token, qtd = qtdDefault) {
   return (dispatch) => fetch(`https://opentdb.com/api.php?amount=${qtd}&token=${token}`)
     .then((response) => response.json())
-    .then((json) => {
-      console.log(json);
-      return dispatch(setQuestions(json));
-    });
+    .then((json) => dispatch(setQuestions(json)));
 }
 
 export const setScore = (score) => ({
