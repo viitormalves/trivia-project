@@ -24,7 +24,7 @@ class Ranking extends Component {
     return (
       <div>
         <h1 data-testid="ranking-title">
-          placeholder
+          Ranking
         </h1>
         <ol>
           {ranking.map((player, index) => (

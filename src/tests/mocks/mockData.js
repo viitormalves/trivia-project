@@ -4,6 +4,13 @@ export const tokenResponse = {
   "token":"f00cb469ce38726ee00a7c6836761b0a4fb808181a125dcde6d50a9f3c9127b6",
 };
 
+export const mockLocalStorage = [
+  { name: "a", score:113, picture: "https://www.gravatar.com/avatar/0cc175b9c0f1b6a831c399e269772661" },
+  { name: "b", score:190, picture: "https://www.gravatar.com/avatar/92eb5ffee6ae2fec3ad71c777531578f" },
+  { name: "c", score:99, picture: "https://www.gravatar.com/avatar/4a8a08f09d37b73795649038408b5f33" },
+  { name: "Test", score:200, picture: "https://www.gravatar.com/avatar/b642b4217b34b1e8d3bd915fc65c4452" },
+];
+
 export const questionsResponse = {
   response_code: 0,
   results: [
