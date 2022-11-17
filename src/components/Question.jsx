@@ -54,7 +54,7 @@ class Question extends Component {
       const scoreMedium = 2;
       result = score10 + (scoreMedium * timer);
       dispatch(setScore(result));
-    } else if (difficulty === 'hard') {
+    } else {
       const scoreHard = 3;
       result = score10 + (scoreHard * timer);
       dispatch(setScore(result));
@@ -64,7 +64,7 @@ class Question extends Component {
   handleAnswer = ({ target }) => {
     const { questions, count } = this.props;
     const question = questions[count];
-    if (target.innerText === question.correct_answer) this.handleScore();
+    if (target.innerHTML === question.correct_answer) this.handleScore();
     this.setState({ checkAnswer: true, disabled: true });
   };
 
@@ -123,8 +123,8 @@ class Question extends Component {
         score,
         picture: `https://www.gravatar.com/avatar/${md5(gravatarEmail).toString()}`,
       };
-      const storage = localStorage.getItem('ranking');
-      const ranking = storage ? JSON.parse(storage) : [];
+      // const storage = localStorage.getItem('ranking');
+      const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
 
       ranking.push(player);
 
@@ -143,7 +143,7 @@ class Question extends Component {
         <h3 data-testid="question-category">{question.category}</h3>
         <p data-testid="question-text">{question.question}</p>
 
-        <h3>{ timer }</h3>
+        <h3 data-testid="question-timer">{ timer }</h3>
 
         <div data-testid="answer-options">
           {

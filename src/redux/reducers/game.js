@@ -15,11 +15,10 @@ function game(state = INITIAL_STATE, action) {
   case SET_QUESTIONS:
     return { ...state,
       questions: action.payload.results,
-      count: 0,
       valid: (action.payload.response_code === error),
     };
   case CLEAR_QUESTIONS:
-    return { ...state, questions: [] };
+    return { ...state, questions: [], count: 0 };
   default:
     return state;
   }

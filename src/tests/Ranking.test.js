@@ -2,8 +2,7 @@ import { act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
-import { mockLocalStorage } from './mocks/mockData';
-import initialState from './mocks/mockInitialState';
+import { mockLocalStorage, initialState } from './mocks/mockData';
 
 describe('ranking page', () => {
   beforeEach(() => {
