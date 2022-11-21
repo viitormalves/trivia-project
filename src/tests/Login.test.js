@@ -2,12 +2,12 @@ import { act, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
-import { mockFetchQuestions, mockFetchToken } from './mocks/mockFetch';
+import { fetch as fetchMock } from '../../cypress/mocks/fetch'
 
 describe('Login page', () => {
   beforeEach(() => {
     cleanup();
-    global.fetch = jest.fn(mockFetchToken);
+    global.fetch = jest.fn(fetchMock);
   });
   afterEach(() => {
     global.fetch.mockClear();
@@ -55,7 +55,6 @@ describe('Login page', () => {
     act(() => userEvent.type(nameInput, 'teste'));
     expect(loginBtn.disabled).toBe(false);
 
-    global.fetch = jest.fn(mockFetchQuestions);
     act(() => userEvent.click(loginBtn));
     expect(global.fetch).toHaveBeenCalledTimes(1);
     

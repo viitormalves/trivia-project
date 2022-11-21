@@ -2,7 +2,7 @@ import { act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouterAndRedux from "./helpers/renderWithRouterAndRedux";
-import initialState from './mocks/mockInitialState'
+import { initialState } from './mocks/mockData';
 
 describe('Feedback page', () => {
   test('if the page reders correctly', () => {
@@ -29,9 +29,7 @@ describe('Feedback page', () => {
     const playAgain = getByTestId('btn-play-again');
     expect(playAgain).toBeInTheDocument();
 
-    act(() => {
-      userEvent.click(playAgain);
-    });
+    act(() => userEvent.click(playAgain));
     expect(history.location.pathname).toBe('/');
   });
 
@@ -41,9 +39,7 @@ describe('Feedback page', () => {
     const rakingBtn = getByTestId('btn-ranking');
     expect(rakingBtn).toBeInTheDocument();
 
-    act(() => {
-      userEvent.click(rakingBtn);
-    })
+    act(() => userEvent.click(rakingBtn));
     expect(history.location.pathname).toBe('/ranking');
   });
 })
