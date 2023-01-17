@@ -1,0 +1,28 @@
+.login {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
+  width: max-content;
+}
+
+.button-login {
+  align-items: center;
+  background: #2fc18c;
+  border-radius: 5px;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  height: 45px;
+  justify-content: center;
+  width: 519px;
+}
+
+.logo {
+  height: 150px;
+  margin-bottom: 50px;
+  width: 450px;
+}

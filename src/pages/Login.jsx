@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createUser, clearQuestions, clearScore } from '../redux/actions';
+import '../css/Login.css';
+import logo from '../trivia.png';
 
 class Login extends Component {
   constructor() {
@@ -42,39 +44,44 @@ class Login extends Component {
   render() {
     const { name, email } = this.state;
     return (
-      <form>
-        <input
-          type="text"
-          name="name"
-          placeholder="Qual seu nome"
-          data-testid="input-player-name"
-          value={ name }
-          onChange={ this.handleChange }
-        />
-        <input
-          type="text"
-          name="email"
-          placeholder="Qual seu email do gravatar"
-          data-testid="input-gravatar-email"
-          value={ email }
-          onChange={ this.handleChange }
-        />
-        <button
-          type="button"
-          data-testid="btn-play"
-          disabled={ this.validateBtn() }
-          onClick={ this.fetchToken }
-        >
-          Play
-        </button>
-        <button
-          data-testid="btn-settings"
-          type="button"
-          onClick={ this.goToSettings }
-        >
-          Configurações
-        </button>
-      </form>
+      <div className="login">
+        <img src={ logo } alt="logo-trivia" className="logo" />
+        <form>
+          <input
+            type="text"
+            name="name"
+            placeholder="Qual seu nome"
+            data-testid="input-player-name"
+            value={ name }
+            onChange={ this.handleChange }
+          />
+          <input
+            type="text"
+            name="email"
+            placeholder="Qual seu email do gravatar"
+            data-testid="input-gravatar-email"
+            value={ email }
+            onChange={ this.handleChange }
+          />
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ this.validateBtn() }
+            onClick={ this.fetchToken }
+            className="button-login"
+          >
+            Play
+          </button>
+          <button
+            data-testid="btn-settings"
+            type="button"
+            onClick={ this.goToSettings }
+            className="button-login"
+          >
+            Configurações
+          </button>
+        </form>
+      </div>
     );
   }
 }
