@@ -1,0 +1,52 @@
+header {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.header-data {
+  align-items: center;
+  background-color: aliceblue;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  height: 100px;
+  justify-content: space-between;
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.logo {
+  height: 150px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  width: 450px;
+}
+
+.img-player {
+  border-radius: 100px;
+  height: 80px;
+  width: 80px;
+}
+
+.perfil-data {
+  align-items: center;
+  color: black;
+  display: flex;
+  font-family: Epilogue , sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 150%;
+  text-align: center;
+  width: max-content;
+}
+
+.star {
+  margin-bottom: 5px;
+  margin-right: 20px;
+}
