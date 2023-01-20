@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { nextQuestion, setScore } from '../redux/actions';
+import '../css/Question.css';
 
 class Question extends Component {
   constructor() {
@@ -138,41 +139,56 @@ class Question extends Component {
     const { alternatives, checkAnswer, timer, disabled, redirect } = this.state;
     const question = questions[count];
     return (
-      <div>
+      <div className="question-container">
         {redirect && <Redirect to="/feedback" />}
-        <h3 data-testid="question-category">{question.category}</h3>
-        <p data-testid="question-text">{question.question}</p>
-
-        <h3 data-testid="question-timer">{ timer }</h3>
-
+        <div className="question-data-container">
+          <h3
+            data-testid="question-category"
+            className="category"
+          >
+            {question.category}
+          </h3>
+          <div className="question">
+            <p data-testid="question-text" className="phrase">{question.question}</p>
+            <h3 data-testid="question-timer">
+              Timer
+              {' '}
+              { timer }
+              s
+            </h3>
+          </div>
+        </div>
         <div data-testid="answer-options">
-          {
-            alternatives.map((alternative, index) => (
-              <button
-                type="button"
-                data-testid={
-                  (alternative === question.correct_answer)
-                    ? 'correct-answer'
-                    : `wrong-answer-${index}`
-                }
-                key={ alternative }
-                onClick={ this.handleAnswer }
-                disabled={ disabled }
-                className={ checkAnswer
+          <div>
+            {
+              alternatives.map((alternative, index) => (
+                <button
+                  type="button"
+                  data-testid={
+                    (alternative === question.correct_answer)
+                      ? 'correct-answer'
+                      : `wrong-answer-${index}`
+                  }
+                  key={ alternative }
+                  onClick={ this.handleAnswer }
+                  disabled={ disabled }
+                  className={ checkAnswer
                   && `${(alternative === question.correct_answer)
                     ? 'correctAnswer'
                     : 'incorrectAnswer'}` }
-              >
-                { alternative }
-              </button>))
-          }
+                >
+                  { alternative }
+                </button>))
+            }
+          </div>
           {(checkAnswer && !timer) && (
             <button
               type="button"
               data-testid="btn-next"
               onClick={ this.handleNext }
+              className="next-button"
             >
-              Próxima
+              Next
             </button>)}
         </div>
       </div>

@@ -42,20 +42,30 @@ input::placeholder {
 
 button {
   align-items: center;
+  background: aliceblue;
+  border-radius: 100px;
   display: flex;
   font-family: Epilogue , sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
+  height: 64px;
+  justify-content: center;
   letter-spacing: 0.12em;
   line-height: 150%;
+  margin: 10px;
   text-align: center;
+  width: 519px;
 }
 
 .correctAnswer {
-  border: 3px solid rgb(6, 240, 15);
+  border: 1px solid rgb(6, 240, 15);
+  box-shadow: 0 0 15px rgb(6, 240, 15);
+  color: rgb(6, 240, 15);
 }
 
 .incorrectAnswer {
-  border: 3px solid red;
+  border: 1px solid red;
+  box-shadow: 0 0 15px red;
+  color: red;
 }
