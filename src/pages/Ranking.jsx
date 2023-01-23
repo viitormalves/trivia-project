@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import '../css/Ranking.css';
 
 class Ranking extends Component {
   constructor() {
@@ -22,23 +23,35 @@ class Ranking extends Component {
     const { ranking } = this.state;
     const { history } = this.props;
     return (
-      <div>
-        <h1 data-testid="ranking-title">
-          Ranking
-        </h1>
-        <ol>
-          {ranking.map((player, index) => (
-            <li key={ index }>
-              <img src={ player.picture } alt={ `${player.name} profile` } />
-              <span data-testid={ `player-name-${index}` }>{player.name}</span>
-              <span data-testid={ `player-score-${index}` }>{player.score}</span>
-            </li>
-          ))}
-        </ol>
+      <div className="ranking-container">
+        <div className="ranking-data">
+          <h1 data-testid="ranking-title">
+            Ranking
+          </h1>
+          <ol>
+            {ranking.map((player, index) => (
+              <li key={ index }>
+                <div>
+                  <img src={ player.picture } alt={ `${player.name} profile` } />
+                  <span data-testid={ `player-name-${index}` }>{player.name}</span>
+                </div>
+                <span
+                  data-testid={ `player-score-${index}` }
+                  className="points"
+                >
+                  {player.score}
+                  {' '}
+                  points
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
         <button
           type="button"
           data-testid="btn-go-home"
           onClick={ () => (history.push('/')) }
+          className="ranking-button"
         >
           Jogar Novamente
         </button>

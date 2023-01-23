@@ -14,25 +14,25 @@ class Feedback extends Component {
           {(assertions > 2) ? 'Well Done!' : 'Could be better...' }
         </h3>
         <p>
-          {'Você acertou '}
+          {'You got '}
           <span data-testid="feedback-total-question">{assertions}</span>
-          {' perguntas totalizando '}
+          {' questions right totaling '}
           <span data-testid="feedback-total-score">{score}</span>
-          {' pontos'}
+          {' points'}
         </p>
         <button
           type="button"
           data-testid="btn-play-again"
           onClick={ () => (history.push('/')) }
         >
-          JOGAR NOVAMENTE
+          PLAY AGAIN
         </button>
         <button
           type="button"
           data-testid="btn-ranking"
           onClick={ () => (history.push('/ranking')) }
         >
-          VER RANKING
+          SHOW RANKING
         </button>
       </div>
     );
