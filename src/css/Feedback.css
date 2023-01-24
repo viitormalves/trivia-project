@@ -1,0 +1,70 @@
+.h3-red {
+  align-items: center;
+  color: #ea5d5d;
+  display: flex;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 150%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.h3-green {
+  align-items: center;
+  color: #2fc18c;
+  display: flex;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 150%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.feedback-data {
+  align-items: center;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 1px 4px 13px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  height: 278px;
+  justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 70px;
+  padding-bottom: 30px;
+  width: 600px;
+}
+
+.play-again-button {
+  background: #2fc18c;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 45px;
+  text-align: center;
+  width: 290px;
+}
+
+.show-ranking-button {
+  background: #00d5e2;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.404);
+  height: 45px;
+  width: 290px;
+}
+
+.div-button {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.feedback-data p {
+  color: #616161;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 150%;
+  text-align: center;
+  width: 200px;
+}
